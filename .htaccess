@@ -1,0 +1,26 @@
+<IfModule mod_rewrite.c>
+
+  RewriteEngine On
+  
+  RewriteBase /kmutt/BoomKmutt/
+  #RewriteBase /
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  #RewriteRule ^(.*)$ index.php?/$1 [L]
+  RewriteRule ^(.*)$ /kmutt/BoomKmutt/index.php?/$1 [L]
+  
+
+
+
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
+  
+</IfModule>
+
+<IfModule !mod_rewrite.c> 
+  # If we don't have mod_rewrite installed, all 404's
+  # can be sent to index.php, and everything works as normal.
+  # Submitted by: ElliotHaughin
+
+  ErrorDocument 404 /index.php
+</IfModule>
